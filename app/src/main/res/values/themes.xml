@@ -1,0 +1,19 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Planner" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="Theme.Planner" parent="Base.Theme.Planner" />
+    <style name="Progrees" >
+        <!-- Customize your dark theme here. -->
+         <item name="colorPrimary">#DB844D</item>
+    </style>
+
+    <style name="CardViewStyle" parent="CardView">
+        <item name="android:topRightRadius">16dp</item>
+        <item name="android:topLeftRadius">16dp</item>
+        <item name="backgroundColor">@color/black</item>
+    </style>
+</resources>

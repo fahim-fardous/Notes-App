@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/notesScreen">
+
+    <fragment
+        android:id="@+id/notesScreen"
+        android:name="com.example.planner.screens.notes.list.NotesScreen"
+        android:label="fragment_task_screen"
+        tools:layout="@layout/fragment_note_screen" >
+        <action
+            android:id="@+id/action_notesScreen_to_addScreen"
+            app:destination="@id/addScreen" />
+        <action
+            android:id="@+id/action_notesScreen_to_detailsScreen"
+            app:destination="@id/detailsScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/addScreen"
+        android:name="com.example.planner.screens.notes.add.AddScreen"
+        android:label="fragment_add_screen"
+        tools:layout="@layout/fragment_add_screen" />
+    <fragment
+        android:id="@+id/detailsScreen"
+        android:name="com.example.planner.screens.notes.details.DetailsScreen"
+        android:label="fragment_details_screen"
+        tools:layout="@layout/fragment_details_screen" >
+        <argument
+            android:name="note_id"
+            app:argType="integer" />
+    </fragment>
+</navigation>

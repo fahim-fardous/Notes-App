@@ -2,7 +2,9 @@ package com.example.planner.screens.notes.details
 
 
 import android.os.Bundle
+import android.provider.ContactsContract.CommonDataKinds.Note
 import android.text.format.DateFormat
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.TextView
@@ -18,10 +20,12 @@ import java.util.Date
 
 
 class DetailsScreen : Fragment(R.layout.fragment_details_screen) {
-    private lateinit var priority: String
+    private var priority: String = ""
     private lateinit var binding: FragmentDetailsScreenBinding
     private val viewModel: AppViewModel by viewModels()
     private val args: DetailsScreenArgs by navArgs()
+    private lateinit var _notes: Notes
+    private var isClicked: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initObserver()
@@ -47,26 +51,25 @@ class DetailsScreen : Fragment(R.layout.fragment_details_screen) {
         }
         viewModel.note.observe(this) { item ->
             item?.run {
+                _notes = item
                 binding.titleEt.setText(item.title)
                 binding.subtitleEt.setText(item.subTitle)
                 priority = item.priority
+                Log.d("p", priority)
                 when (item.priority) {
                     "1" -> {
-                        priority = "1"
                         binding.roundGreenBtn.setImageResource(R.drawable.round_shape_green_border)
                         binding.roundYellowBtn.setImageResource(R.drawable.round_shape_yellow)
                         binding.roundRedBtn.setImageResource(R.drawable.round_shape_red)
                     }
 
                     "2" -> {
-                        priority = "2"
                         binding.roundGreenBtn.setImageResource(R.drawable.round_shape_green)
                         binding.roundYellowBtn.setImageResource(R.drawable.round_shape_yellow_border)
                         binding.roundRedBtn.setImageResource(R.drawable.round_shape_red)
                     }
 
                     "3" -> {
-                        priority = "3"
                         binding.roundGreenBtn.setImageResource(R.drawable.round_shape_green)
                         binding.roundYellowBtn.setImageResource(R.drawable.round_shape_yellow)
                         binding.roundRedBtn.setImageResource(R.drawable.round_shape_red_border)
@@ -86,16 +89,18 @@ class DetailsScreen : Fragment(R.layout.fragment_details_screen) {
     private fun initListeners() {
 
         binding.editFab.setOnClickListener {
+            Log.d("p", priority)
             viewModel.updateNote(
                 Notes(
                     id = args.noteId,
                     title = binding.titleEt.text.toString(),
                     subTitle = binding.subtitleEt.text.toString(),
-                    priority = priority,
+                    priority = if (isClicked) priority else _notes.priority,
                     date = DateFormat.format("d MMMM, yyyy", Date().time).toString(),
                     notes = binding.descriptionEt.text.toString()
                 )
             )
+
         }
 
         binding.roundGreenBtn.setOnClickListener {
@@ -103,6 +108,7 @@ class DetailsScreen : Fragment(R.layout.fragment_details_screen) {
             binding.roundGreenBtn.setImageResource(R.drawable.round_shape_green_border)
             binding.roundYellowBtn.setImageResource(R.drawable.round_shape_yellow)
             binding.roundRedBtn.setImageResource(R.drawable.round_shape_red)
+            isClicked = true
         }
 
         binding.roundRedBtn.setOnClickListener {
@@ -110,6 +116,7 @@ class DetailsScreen : Fragment(R.layout.fragment_details_screen) {
             binding.roundGreenBtn.setImageResource(R.drawable.round_shape_green)
             binding.roundYellowBtn.setImageResource(R.drawable.round_shape_yellow)
             binding.roundRedBtn.setImageResource(R.drawable.round_shape_red_border)
+            isClicked = true
         }
 
         binding.roundYellowBtn.setOnClickListener {
@@ -117,6 +124,7 @@ class DetailsScreen : Fragment(R.layout.fragment_details_screen) {
             binding.roundGreenBtn.setImageResource(R.drawable.round_shape_green)
             binding.roundYellowBtn.setImageResource(R.drawable.round_shape_yellow_border)
             binding.roundRedBtn.setImageResource(R.drawable.round_shape_red)
+            isClicked = true
         }
 
         binding.topBar.setNavigationOnClickListener {

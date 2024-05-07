@@ -48,6 +48,7 @@
             android:background="@drawable/text_field_shape"
             android:fontFamily="sans-serif"
             android:hint="Title"
+            android:inputType="text"
             android:maxLines="1"
             android:padding="15dp"
             android:textColorHint="#D1D1D1" />
@@ -60,6 +61,7 @@
             android:background="@drawable/text_field_shape"
             android:fontFamily="sans-serif"
             android:hint="Subtitle..."
+            android:inputType="text"
             android:maxLines="1"
             android:padding="15dp"
             android:textColorHint="#D1D1D1" />
